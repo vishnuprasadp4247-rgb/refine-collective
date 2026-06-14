@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Refine Collective | Precision & Luxury</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafcff;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        .font-mont {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* smooth page transitions */
+        .page {
+            min-height: 100vh;
+            width: 100%;
+            padding-top: 90px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* modern card effects */
+        .car-card {
+            transition: all 0.35s ease;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+        }
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* top navigation links styling */
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+            font-size: 1.05rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background: #3b82f6;
+            border-radius: 2px;
+            transition: width 0.25s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link.active-page {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .nav-link.active-page::after {
+            width: 100%;
+            background: #3b82f6;
+        }
+
+        /* video overlay & play button */
+        .video-container {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.2);
+            background: #0f172a;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s ease, background 0.2s;
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.3);
+        }
+        .play-btn:hover {
+            transform: scale(1.08);
+            background: #2563eb;
+        }
+
+        .stat-card {
+            transition: all 0.25s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .clickable-btn {
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .clickable-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* notification animation */
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideOutRight {
+            to { opacity: 0; transform: translateX(60px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== FIXED TOP NAVIGATION: HOME | CLIP SECTION | CONTACT ========== -->
+    <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-md border-b border-slate-200/80">
+        <div class="container mx-auto px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo + Brand -->
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-gem text-2xl text-blue-500 drop-shadow-sm"></i>
+                <span class="font-mont font-extrabold text-2xl tracking-tight">
+                    <span class="text-blue-500">Refine</span>
+                    <span class="text-slate-800">Collective</span>
+                </span>
+            </div>
+            
+            <!-- TOP NAVIGATION LINKS (Home, Clip Section, Contact) - CLICKABLE -->
+            <div class="flex space-x-8 md:space-x-10 items-center">
+                <a class="nav-link text-slate-700 hover:text-blue-500 transition font-medium" data-page="homepage">Home</a>
+                <a class="nav-link text-slate-700 hover:text-blue-500 transition font-medium" data-page="clips">Clip Section</a>
+                <a class="nav-link text-slate-700 hover:text-blue-500 transition font-medium" data-page="contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ==================== PAGE 1: HOMEPAGE (Hero / Welcome) ==================== -->
+    <section id="homepage" class="page block">
+        <div class="container mx-auto px-6 py-12 md:py-20">
+            <div class="flex flex-col items-center justify-center min-h-[80vh] text-center">
+                <div class="max-w-5xl">
+                    <div class="mb-10">
+                        <h1 class="font-mont text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-[1.1]">
+                            <span class="text-blue-500">Refine</span>
+                            <span class="text-slate-800">Collective</span>
+                        </h1>
+                        <div class="mt-6 h-1 w-24 bg-blue-500 mx-auto rounded-full"></div>
+                        <p class="text-2xl md:text-3xl text-slate-600 italic mt-8 font-light">Excellence through refinement</p>
+                    </div>
+                    
+                    <!-- CTA button that leads to About page -->
+                    <div class="mb-16">
+                        <button onclick="showPage('home')" class="clickable-btn inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition text-lg font-semibold">
+                            <i class="fas fa-play-circle text-xl"></i> Discover Our Story
+                        </button>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                        <div class="stat-card bg-white p-6 rounded-2xl shadow-md border border-slate-100">
+                            <div class="text-4xl font-black text-blue-500 mb-2">50+</div>
+                            <div class="font-semibold text-slate-800 text-lg">Projects</div>
+                            <p class="text-slate-500 text-sm">Successfully delivered</p>
+                        </div>
+                        <div class="stat-card bg-white p-6 rounded-2xl shadow-md border border-slate-100">
+                            <div class="text-4xl font-black text-blue-500 mb-2">12</div>
+                            <div class="font-semibold text-slate-800 text-lg">Years</div>
+                            <p class="text-slate-500 text-sm">Of excellence</p>
+                        </div>
+                        <div class="stat-card bg-white p-6 rounded-2xl shadow-md border border-slate-100">
+                            <div class="text-4xl font-black text-blue-500 mb-2">100%</div>
+                            <div class="font-semibold text-slate-800 text-lg">Satisfaction</div>
+                            <p class="text-slate-500 text-sm">Client happiness</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-20">
+                        <p class="text-slate-500 text-sm mb-3">Explore our world</p>
+                        <div class="animate-bounce inline-block">
+                            <i class="fas fa-chevron-down text-blue-500 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 2: ABOUT (Company Description) ==================== -->
+    <section id="home" class="page hidden">
+        <div class="container mx-auto px-6 py-16 max-w-6xl">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+                <div class="p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row items-start gap-6 mb-10">
+                        <div class="bg-blue-100 p-5 rounded-2xl">
+                            <i class="fas fa-building text-4xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-4xl font-mont font-bold text-slate-800">About <span class="text-blue-500">Refine Collective</span></h2>
+                            <p class="text-slate-500 text-lg">Est. 2012 · Global design & innovation agency</p>
+                        </div>
+                    </div>
+                    <div class="space-y-6 text-slate-700 text-lg leading-relaxed">
+                        <p>Refine Collective is a premier design and innovation agency that transforms ideas into exceptional experiences. For over a decade, we've helped global brands refine their vision, blending strategic thinking with world-class creativity.</p>
+                        <p>Our name reflects our core philosophy: true excellence emerges through intentional refinement. Every pixel, every strategy, every interaction is crafted with relentless attention to detail, ensuring your brand doesn't just stand out — it resonates.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 mt-12">
+                        <div class="bg-blue-50/60 p-6 rounded-2xl">
+                            <i class="fas fa-bullseye text-3xl text-blue-600 mb-4 block"></i>
+                            <h3 class="text-2xl font-bold mb-2">Mission</h3>
+                            <p>Empower businesses through refined design and innovation that creates meaningful connections and sustainable growth.</p>
+                        </div>
+                        <div class="bg-blue-50/60 p-6 rounded-2xl">
+                            <i class="fas fa-eye text-3xl text-blue-600 mb-4 block"></i>
+                            <h3 class="text-2xl font-bold mb-2">Vision</h3>
+                            <p>To be the leading collective of creative minds redefining excellence across every project we touch.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl text-white p-8 md:p-10 shadow-2xl">
+                <h3 class="text-3xl font-bold mb-8 text-center">Our Core Values</h3>
+                <div class="grid sm:grid-cols-3 gap-8 text-center">
+                    <div><i class="fas fa-handshake text-4xl mb-3"></i><h4 class="text-xl font-bold">Collaboration</h4><p class="text-blue-100">Diverse perspectives fuel greatness.</p></div>
+                    <div><i class="fas fa-lightbulb text-4xl mb-3"></i><h4 class="text-xl font-bold">Innovation</h4><p class="text-blue-100">Pushing boundaries, embracing the new.</p></div>
+                    <div><i class="fas fa-medal text-4xl mb-3"></i><h4 class="text-xl font-bold">Excellence</h4><p class="text-blue-100">No detail is too small.</p></div>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-5 mt-14">
+                <button onclick="showPage('clips')" class="bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 rounded-xl font-semibold shadow-md transition"><i class="fas fa-video mr-2"></i> Clip Gallery</button>
+                <button onclick="showPage('contact')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 px-7 py-3 rounded-xl font-semibold transition"><i class="fas fa-paper-plane mr-2"></i> Contact Us</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 3: CLIP SECTION (Luxury Cars Gallery) ==================== -->
+    <section id="clips" class="page hidden">
+        <div class="container mx-auto px-6 py-16 max-w-7xl">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-mont font-bold text-slate-800">Luxury <span class="text-blue-500">Automotive Gallery</span></h2>
+                <div class="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-500 text-lg mt-4">Where precision engineering meets artistic refinement</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-16">
+                <!-- Video showcase -->
+                <div>
+                    <div class="video-container aspect-video">
+                        <video id="luxuryCarVideo" class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&auto=format">
+                            <source src="#" type="video/mp4">
+                        </video>
+                        <div id="videoOverlay" class="video-overlay">
+                            <div class="play-btn" onclick="playLuxuryVideo()">
+                                <i class="fas fa-play text-white text-3xl ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 flex justify-between items-center">
+                        <div><h3 class="text-2xl font-bold">Hypercar Showreel</h3><p class="text-slate-500">Experience the pinnacle of speed & luxury</p></div>
+                        <span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm"><i class="fas fa-video mr-1"></i> 4K demo</span>
+                    </div>
+                </div>
+
+                <!-- Image Gallery (4 luxury cars) -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-5 flex items-center"><i class="fas fa-images text-blue-500 mr-3"></i> Iconic Collection</h3>
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="car-card"><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&auto=format" class="h-56 w-full object-cover" alt="sports car"><div class="p-3"><h4 class="font-bold">Ferrari Vision</h4><p class="text-xs text-slate-500">Italian passion</p></div></div>
+                        <div class="car-card"><img src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?w=600&auto=format" class="h-56 w-full object-cover" alt="luxury sedan"><div class="p-3"><h4 class="font-bold">Executive GT</h4><p class="text-xs text-slate-500">Timeless comfort</p></div></div>
+                        <div class="car-card"><img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&auto=format" class="h-56 w-full object-cover" alt="modern hypercar"><div class="p-3"><h4 class="font-bold">Aeroblade</h4><p class="text-xs text-slate-500">Future-forward</p></div></div>
+                        <div class="car-card"><img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&auto=format" class="h-56 w-full object-cover" alt="classic luxury"><div class="p-3"><h4 class="font-bold">Heritage Edition</h4><p class="text-xs text-slate-500">Vintage elegance</p></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Refined philosophy quote -->
+            <div class="bg-gradient-to-r from-slate-50 to-blue-50/30 rounded-3xl p-8 border border-slate-200">
+                <i class="fas fa-quote-left text-4xl text-blue-400 mb-4 block"></i>
+                <p class="text-xl md:text-2xl font-light italic text-slate-700">"Just as the world's finest automobiles are refined to perfection, we apply the same principles of precision, innovation, and passion to every creative endeavor."</p>
+                <div class="mt-6 text-slate-500 font-medium">— Refine Collective philosophy</div>
+            </div>
+
+            <div class="flex justify-center gap-6 mt-14">
+                <button onclick="showPage('home')" class="px-6 py-3 bg-white border border-slate-300 rounded-xl font-medium shadow-sm hover:shadow"><i class="fas fa-arrow-left mr-2"></i> Back to About</button>
+                <button onclick="showPage('contact')" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium shadow-md hover:bg-blue-700"><i class="fas fa-envelope mr-2"></i> Get in Touch</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 4: CONTACT SECTION ==================== -->
+    <section id="contact" class="page hidden">
+        <div class="container mx-auto px-6 py-16 max-w-6xl">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-mont font-bold text-slate-800">Get In <span class="text-blue-500">Touch</span></h2>
+                <p class="text-slate-500 text-xl mt-3">We're excited to collaborate with you — reach out anytime.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Info Cards -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-100">
+                    <h3 class="text-3xl font-bold mb-8 flex items-center"><i class="fas fa-map-pin text-blue-500 mr-3"></i> Connect directly</h3>
+                    <div class="space-y-8">
+                        <div class="flex gap-5"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center"><i class="fas fa-map-marker-alt text-blue-600 text-xl"></i></div><div><h4 class="font-bold text-xl">Studio</h4><p class="text-slate-600">123 Design Avenue, Creative District, CD 10001</p></div></div>
+                        <div class="flex gap-5"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center"><i class="fas fa-phone-alt text-blue-600 text-xl"></i></div><div><h4 class="font-bold text-xl">Phone</h4><p class="text-slate-600">+1 (555) 123-4567 <br><span class="text-sm">Mon-Fri 9AM–6PM</span></p></div></div>
+                        <div class="flex gap-5"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center"><i class="fas fa-envelope text-blue-600 text-xl"></i></div><div><h4 class="font-bold text-xl">Email</h4><p class="text-slate-600">info@refinecollective.com<br>support@refinecollective.com</p></div></div>
+                    </div>
+                    <div class="mt-10 pt-6 border-t border-slate-200">
+                        <h4 class="text-xl font-semibold mb-4">Follow the collective</h4>
+                        <div class="flex space-x-5">
+                            <a href="#" class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-blue-500 hover:text-white transition text-blue-600"><i class="fab fa-facebook-f text-xl"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-blue-500 hover:text-white transition text-blue-400"><i class="fab fa-twitter text-xl"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-pink-500 hover:text-white transition text-pink-500"><i class="fab fa-instagram text-xl"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-blue-700 hover:text-white transition text-blue-700"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-gradient-to-br from-white to-blue-50/40 rounded-2xl shadow-lg p-8 border border-slate-100">
+                    <h3 class="text-2xl font-bold mb-6">Send us a message</h3>
+                    <form id="contactForm" class="space-y-5">
+                        <div><input type="text" id="name" placeholder="Full name" class="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-300 bg-white"></div>
+                        <div><input type="email" id="email" placeholder="Email address" class="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-300"></div>
+                        <div><input type="text" id="subject" placeholder="Subject" class="w-full p-4 border border-slate-300 rounded-xl"></div>
+                        <div><textarea id="message" rows="4" placeholder="How can we help you?" class="w-full p-4 border border-slate-300 rounded-xl"></textarea></div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition shadow-md"><i class="fas fa-paper-plane mr-2"></i> Send Message</button>
+                    </form>
+                    <div class="mt-6 p-4 bg-blue-50 rounded-xl text-sm text-slate-600 flex gap-3"><i class="fas fa-clock text-blue-500 mt-0.5"></i> We reply within 24h on business days. For urgent matters, call us directly.</div>
+                </div>
+            </div>
+            <div class="flex justify-center gap-6 mt-14">
+                <button onclick="showPage('home')" class="px-7 py-3 bg-slate-200 rounded-xl font-medium hover:bg-slate-300 transition"><i class="fas fa-home mr-2"></i> About Us</button>
+                <button onclick="showPage('clips')" class="px-7 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"><i class="fas fa-car mr-2"></i> Explore Gallery</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER (only 2025 copyright, clean) ========== -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm tracking-wide">© 2025 Refine Collective. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ---------- CORE NAVIGATION: ON CLICK GO TO RESPECTIVE PAGE (HOME, CLIP SECTION, CONTACT) ----------
+        function showPage(pageId) {
+            // List of all page sections
+            const pages = ['homepage', 'home', 'clips', 'contact'];
+            pages.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (id === pageId) {
+                        el.classList.remove('hidden');
+                        el.classList.add('block');
+                    } else {
+                        el.classList.remove('block');
+                        el.classList.add('hidden');
+                    }
+                }
+            });
+            
+            // Update active class on top navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-page');
+                const targetPage = link.getAttribute('data-page');
+                if (targetPage === pageId) {
+                    link.classList.add('active-page');
+                }
+            });
+            
+            // Smooth scroll to top when switching pages
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ATTACH CLICK EVENT LISTENERS TO TOP NAVIGATION (HOME, CLIP SECTION, CONTACT)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('data-page');
+                if (target) {
+                    showPage(target);
+                }
+            });
+        });
+
+        // Initialize: show homepage and set active nav
+        showPage('homepage');
+
+        // Video simulation for clip section (playful demo)
+        window.playLuxuryVideo = function() {
+            const overlay = document.getElementById('videoOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+                showNotification('🎬 Premium showcase: "The Art of Velocity" — stunning luxury car footage would play here.');
+            } else {
+                showNotification('Immerse in refined automotive excellence.');
+            }
+        };
+
+        // Contact form handler with validation
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name')?.value.trim();
+                const email = document.getElementById('email')?.value.trim();
+                if (!name || !email) {
+                    alert('Please fill your name and email before sending.');
+                    return;
+                }
+                showNotification(`✨ Thanks ${name}! Your message has been received. We'll reply to ${email} within 24h.`);
+                contactForm.reset();
+            });
+        }
+
+        // Elegant notification system
+        function showNotification(msg) {
+            const existingNotif = document.querySelector('.custom-notif');
+            if (existingNotif) existingNotif.remove();
+            const notif = document.createElement('div');
+            notif.className = 'custom-notif fixed top-24 right-6 z-50 bg-slate-800 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-base font-medium backdrop-blur-sm bg-opacity-90';
+            notif.innerHTML = `<i class="fas fa-check-circle text-green-400"></i> ${msg}`;
+            notif.style.animation = 'slideInRight 0.28s ease forwards';
+            document.body.appendChild(notif);
+            setTimeout(() => {
+                notif.style.animation = 'slideOutRight 0.28s ease forwards';
+                setTimeout(() => notif.remove(), 280);
+            }, 3000);
+        }
+
+        // Additional CSS for notification animations
+        const styleAnim = document.createElement('style');
+        styleAnim.textContent = `
+            .custom-notif { transition: opacity 0.2s; }
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes slideOutRight {
+                to { opacity: 0; transform: translateX(50px); }
+            }
+        `;
+        document.head.appendChild(styleAnim);
+    </script>
+</body>
+</html>
